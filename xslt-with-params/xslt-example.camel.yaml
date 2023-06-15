@@ -1,0 +1,21 @@
+- route:
+    id: route-2275
+    from:
+      uri: file:incoming
+      id: from-0a2e
+      parameters:
+        noop: true
+      steps:
+        - setHeader:
+            name: myParam
+            id: setHeader-caaf
+            expression:
+              simple:
+                expression: PARAMETER_VALUE
+                id: simple-028d
+        - to:
+            uri: xslt-saxon:transformation.xsl
+            id: to-51eb
+        - log:
+            message: ${body}
+            id: log-7418
