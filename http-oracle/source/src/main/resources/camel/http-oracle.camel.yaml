@@ -1,0 +1,33 @@
+- rest:
+    id: rest-417a
+    post:
+      - id: get-46f8
+        to: direct:database
+    path: /api
+- route:
+    id: database
+    from:
+      uri: direct:database
+      id: from-edc7
+      steps:
+        - to:
+            uri: xj:identity
+            id: to-1f63
+            parameters:
+              transformDirection: XML2JSON
+        - unmarshal:
+            id: unmarshal-2ceb
+            json:
+              id: json-976f
+              library: jackson
+        - log:
+            message: ${body}
+            id: log-726c
+        - to:
+            uri: sql:classpath:myquery.sql
+            id: to-b75a
+            disabled: false
+        - marshal:
+            id: marshal-77c2
+            json:
+              id: json-ccd4

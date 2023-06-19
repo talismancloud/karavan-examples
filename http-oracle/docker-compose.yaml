@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+
+  oracle:
+    container_name: oracle
+    image: container-registry.oracle.com/database/free:latest       
+    ports:
+      - "1521:1521"
+    environment:
+      ORACLE_PWD: admin
+    volumes:
+      - "./scripts:/opt/oracle/scripts/startup"  
+    networks:
+      - demo-network
+
+  http-oracle:
+    container_name: http-oracle
+    image: demo/http-oracle:1
+    ports:
+      - "8080:8080"
+    depends_on:
+      - oracle
+    networks:
+      - demo-network
+
+networks:
+  demo-network:
+    name: demo-network

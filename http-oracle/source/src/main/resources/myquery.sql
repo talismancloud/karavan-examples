@@ -1,0 +1,1 @@
+INSERT INTO dev.persons VALUES (:#${body.[id]}, :#${body.[firstname]}, :#${body.[lastname]})
