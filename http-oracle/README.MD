@@ -1,5 +1,8 @@
 # HTTP to Oracle example
 
+Application receives XML through HTTP, extract values and store them into Oracle Database.
+Running in Docker Compose environment.
+
 1. Build Application docker image
 ```
 cd source
