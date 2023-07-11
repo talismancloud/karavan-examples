@@ -16,10 +16,9 @@
             parameters:
               transformDirection: XML2JSON
         - unmarshal:
-            id: unmarshal-2ceb
+            id: unmarshal-cb74
             json:
               id: json-976f
-              library: jackson
         - log:
             message: ${body}
             id: log-726c
