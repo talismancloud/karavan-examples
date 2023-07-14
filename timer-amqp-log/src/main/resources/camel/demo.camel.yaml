@@ -1,0 +1,25 @@
+- restConfiguration:
+    component: platform-http
+    bindingMode: auto
+- route:
+    id: route-07b8
+    from:
+      uri: kamelet:timer-source
+      id: from-829a
+      parameters:
+        message: Hello
+        period: 2000
+      steps:
+        - log:
+            message: 'Send ${body}'
+            id: log-db5c
+        - to:
+            uri: amqp:queue:demo
+- route:
+    id: route-16c2
+    from:
+      uri: amqp:queue:demo
+      steps:
+        - log:
+            message: 'Received ${body}'
+            id: log-34f2
