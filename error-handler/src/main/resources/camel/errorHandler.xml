@@ -1,0 +1,9 @@
+<camelContext>
+    <errorHandler id="globalErrorHandler"
+                  type="DeadLetterChannel"
+                  deadLetterUri="direct:error"
+                  maximumRedeliveries="3"
+                  redeliveryDelay="1000"
+                  useOriginalBody="true"
+    />
+</camelContext>

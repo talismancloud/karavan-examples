@@ -57,7 +57,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-groovy</artifactId>
+            <artifactId>camel-quarkus-xml-io-dsl</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
