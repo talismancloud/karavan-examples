@@ -1,5 +1,6 @@
 - route:
     id: route-07b8
+    routeConfigurationId: specialConfig
     from:
       uri: kamelet:timer-source
       id: from-829a
