@@ -1,0 +1,19 @@
+- route:
+    id: route-07b8
+    from:
+      uri: kamelet:timer-source
+      id: from-829a
+      parameters:
+        message: 'YAML BODY'
+        period: 2000
+      steps:
+        - log:
+            message: Send ${body}
+            id: log-db5c
+        - setBody:
+            id: setBody-f7c6
+            expression:
+              groovy:
+                expression: 1000 / 0
+                id: groovy-e633
+
