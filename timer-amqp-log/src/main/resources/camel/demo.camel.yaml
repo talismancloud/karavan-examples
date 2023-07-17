@@ -1,25 +1,37 @@
-- restConfiguration:
-    component: platform-http
-    bindingMode: auto
 - route:
-    id: route-07b8
+    id: SENDER
     from:
       uri: kamelet:timer-source
-      id: from-829a
+      id: from-1758
       parameters:
+        name: subprocessWellstatusMsgcreatorUnreadMessage
         message: Hello
-        period: 2000
+        period: 10000
       steps:
-        - log:
-            message: 'Send ${body}'
-            id: log-db5c
         - to:
-            uri: amqp:queue:demo
+            uri: amqp
+            id: to-8770
+            parameters:
+              deliveryPersistent: false
+              disableTimeToLive: true
+              synchronous: false
+              destinationName: MJTEST
+    description: Subprocess Unread Message
 - route:
-    id: route-16c2
+    id: RECEIVER
     from:
-      uri: amqp:queue:demo
+      uri: amqp
+      id: from-21a6
+      parameters:
+        destinationName: MJTEST
       steps:
+        - delay:
+            id: delay-cc2b
+            expression:
+              simple:
+                expression: '100000'
+                id: simple-3f02
         - log:
-            message: 'Received ${body}'
-            id: log-34f2
+            message: ${body}
+            id: log-7f11
+            logName: MJlog
