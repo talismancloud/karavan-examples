@@ -1,0 +1,34 @@
+- route:
+    id: route-36bc
+    from:
+      uri: sql
+      id: from-b071
+      parameters:
+        dataSource: '#bean:dsBean'
+        query: 'SELECT * FROM PRODUCT WHERE STATUS = ''NEW'' '
+        sendEmptyMessageWhenIdle: false
+        outputType: SelectList
+        onConsume: UPDATE PRODUCT SET STATUS = 'DONE' WHERE PRODUCT_ID = :#PRODUCT_ID
+        onConsumeFailed: >-
+          UPDATE PRODUCT SET STATUS = 'ERROR', ERROR =
+          :#${exchangeProperty.CamelExceptionCaught.toString()} WHERE PRODUCT_ID
+          = :#PRODUCT_ID
+      steps:
+        - setHeader:
+            name: test
+            id: setHeader-9d85
+            expression:
+              groovy:
+                expression: 100 / body.product_id
+                id: groovy-b060
+        - log:
+            message: ${body}
+            id: log-c1b4
+- beans:
+    - name: dsBean
+      properties:
+        username: postgres
+        password: postgres
+        url: jdbc:postgresql://localhost:5432/postgres
+        driverClassName: org.postgresql.Driver
+      type: '#class:org.apache.commons.dbcp2.BasicDataSource'
