@@ -1,0 +1,49 @@
+- route:
+    id: route-900d
+    from:
+      uri: kamelet:timer-source
+      id: from-bc52
+      parameters:
+        message: Hello
+      steps:
+        - setBody:
+            expression:
+              simple:
+                expression: <mail><subject>Hey</subject><body>Hello world!</body></mail>
+                id: simple-cc9a
+            id: setBody-3cb9
+        - setHeader:
+            name: myXslt
+            expression:
+              constant:
+                expression: |-
+                  <xsl:stylesheet
+                    xmlns:xsl='http://www.w3.org/1999/XSL/Transform'
+                    version='1.0'>
+
+                    <xsl:output method="xml" indent="yes" encoding="ISO-8859-1"/>
+
+                    <xsl:template match="/">
+                      <transformed subject="{/mail/subject}">
+                        <cheese>
+                          <xsl:apply-templates select="*|@*"/>
+                        </cheese>
+                      </transformed>
+                    </xsl:template>
+
+                    <xsl:template match="*">
+                      <xsl:copy>
+                        <xsl:copy-of select="attribute::*"/>
+                        <xsl:apply-templates/>
+                      </xsl:copy>
+                    </xsl:template>
+
+                  </xsl:stylesheet>
+                id: constant-fac4
+            id: setHeader-e5c7
+        - toD:
+            uri: xslt-saxon:bean:XsltFromHeader:myMethod
+            id: toD-cabb
+        - log:
+            message: ${body}
+            id: log-b1ad
