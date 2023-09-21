@@ -42,7 +42,7 @@
                 id: constant-fac4
             id: setHeader-e5c7
         - toD:
-            uri: xslt-saxon:bean:XsltFromHeader:myMethod
+            uri: xslt-saxon:bean:XsltFromHeader.myMethod
             id: toD-cabb
         - log:
             message: ${body}
